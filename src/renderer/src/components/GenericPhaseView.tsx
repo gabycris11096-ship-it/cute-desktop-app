@@ -1,4 +1,6 @@
-import { motion } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import confetti from 'canvas-confetti'
 import { ArrowLeft, Edit2, Save, Sparkles, Bell, Rocket, Layers, Star, Zap, Trophy, Target, Medal, Lightbulb, Gift, Compass, LucideIcon } from 'lucide-react'
 import CronogramaCard from './CronogramaCard'
 import SugerenciaCard from './SugerenciaCard'
@@ -38,7 +40,7 @@ const GenericPhaseView = ({
   
   // Icon and Color configuration per phase
   const config: Record<number, { primary: string, icon: LucideIcon, subIcon: LucideIcon, suffix: string, courseTitle: string, link: string }> = {
-    1: { primary: 'var(--color-blue)', icon: Sparkles, subIcon: Bell, suffix: '✨', courseTitle: 'Cursa – Cómo ser Tester de Software', link: 'https://cursa.app/es/curso/como-ser-tester-de-software' },
+    1: { primary: 'var(--color-blue)', icon: Sparkles, subIcon: Bell, suffix: '✨', courseTitle: 'Cursa – Cómo ser Tester de Software', link: 'https://cursa.app/curso-testes-de-software-es-online-gratis' },
     2: { primary: 'var(--color-orange)', icon: Rocket, subIcon: Layers, suffix: '🚀', courseTitle: 'Jira y Scrum para QA', link: 'https://www.youtube.com/results?search_query=jira+y+scrum+para+qa' },
     3: { primary: 'var(--color-teal)', icon: Star, subIcon: Zap, suffix: '🌟', courseTitle: 'Automatización con Selenium', link: 'https://www.selenium.dev/documentation/' },
     4: { primary: 'var(--color-indigo)', icon: Trophy, subIcon: Target, suffix: '🏆', courseTitle: 'Experiencia en Proyectos Reales', link: 'https://github.com/' },
@@ -51,6 +53,44 @@ const GenericPhaseView = ({
   const completed = items.filter(i => i.completado).length
   const total = items.length
   const progress = total > 0 ? Math.round((completed / total) * 100) : 0
+  const lastProgress = useRef(progress)
+
+  useEffect(() => {
+    if (progress === 100 && lastProgress.current < 100) {
+      // Lanzar confeti mágico
+      const duration = 3 * 1000
+      const animationEnd = Date.now() + duration
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
+
+      const randomInRange = (min: number, max: number): number => {
+        return Math.random() * (max - min) + min
+      }
+
+      const interval: any = setInterval(() => {
+        const timeLeft = animationEnd - Date.now()
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval)
+        }
+
+        const particleCount = 50 * (timeLeft / duration)
+        // since particles fall down, start a bit higher than random
+        confetti({ 
+          ...defaults, 
+          particleCount, 
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+          colors: ['#ff85a1', '#d8b4fe', '#b0d0ff']
+        })
+        confetti({ 
+          ...defaults, 
+          particleCount, 
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+          colors: ['#99f6e4', '#fbbf24', '#f472b6']
+        })
+      }, 250)
+    }
+    lastProgress.current = progress
+  }, [progress])
 
   return (
     <motion.div
@@ -196,9 +236,21 @@ const GenericPhaseView = ({
           {!isCrono && (
             <div style={{ height: '8px', background: 'var(--color-bg)', borderRadius: 'var(--radius-full)', overflow: 'hidden', marginBottom: '1.5rem' }}>
               <motion.div
+                className="progress-bar"
                 initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                style={{ height: '100%', background: `linear-gradient(90deg, ${primary}, var(--color-green))`, borderRadius: 'var(--radius-full)' }}
+                animate={{ 
+                  width: `${progress}%`,
+                  boxShadow: progress === 100 ? [
+                    '0 0 0px var(--app-primary)',
+                    '0 0 20px var(--app-primary)',
+                    '0 0 0px var(--app-primary)'
+                  ] : 'none'
+                }}
+                transition={{ 
+                  width: { type: 'spring', stiffness: 50, damping: 20 },
+                  boxShadow: { repeat: Infinity, duration: 2 }
+                }}
+                style={{ height: '100%', backgroundColor: primary, borderRadius: 'var(--radius-full)' } as React.CSSProperties}
               />
             </div>
           )}

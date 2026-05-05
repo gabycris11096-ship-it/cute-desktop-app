@@ -8,7 +8,21 @@ interface DashboardProps {
   onSelectFase: (fase: string) => void
 }
 
+const tips = [
+  "Un buen Bug Report tiene pasos claros, resultados esperados y observados. 🐞",
+  "¡No asumas nada! Si tienes dudas, pregunta al equipo. La comunicación es clave. 💬",
+  "El Testing de Regresión es tu mejor amigo después de cada cambio importante. 🔄",
+  "Calidad no es actuar después del error, es prevenir que ocurra. ✨",
+  "¡Prioriza! No todos los bugs tienen el mismo impacto en el usuario. ⚖️",
+  "Documentar tus pruebas hoy te ahorrará dolores de cabeza mañana. 📝",
+  "¡Recuerda hidratarte! Una mente fresca encuentra mejores bugs. 💧",
+  "Explorar la app como un usuario real ayuda a encontrar errores lógicos. 🕵️‍♀️",
+  "La automatización es poderosa, pero el ojo humano es insustituible. 👀",
+  "¡Felicidades por estudiar hoy! Estás un paso más cerca de tu meta. 🌟"
+]
+
 const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase }: DashboardProps): React.JSX.Element => {
+  const [randomTip] = useState(() => tips[Math.floor(Math.random() * tips.length)])
   const isDark = currentTheme === 'theme-dark'
   const renderProgress = (fase: string, color: string): React.JSX.Element => {
     const val = progress[fase] || 0
@@ -67,7 +81,44 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
         </motion.div>
       </div>
 
-      {/* Phase Cards */}
+        {/* Magic Tip Bubble */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 0.5, type: "spring" }}
+          style={{ 
+            marginTop: '-1rem', 
+            marginBottom: '1rem',
+            background: 'var(--app-card-bg)', 
+            padding: '0.8rem 1.2rem', 
+            borderRadius: '20px 20px 20px 5px', 
+            boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+            border: '2px solid var(--app-primary)',
+            color: 'var(--app-text)',
+            fontSize: '0.95rem',
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            width: 'fit-content',
+            maxWidth: '90%',
+            position: 'relative'
+          }}
+        >
+          <Lightbulb size={20} color="var(--app-primary)" />
+          <span>{randomTip}</span>
+          {/* Pequeño triángulo del globo */}
+          <div style={{ 
+            position: 'absolute', 
+            bottom: '-10px', 
+            left: '10px', 
+            width: 0, 
+            height: 0, 
+            borderLeft: '10px solid transparent',
+            borderRight: '10px solid transparent',
+            borderTop: '10px solid var(--app-primary)'
+          }} />
+        </motion.div>
       <div
         style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.2rem' }}
       >
