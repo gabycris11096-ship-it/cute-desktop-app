@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@300;400;600;700&family=Fredoka:wght@300;400;600;700&family=Bubblegum+Sans&family=Outfit:wght@300;400;600;800;900&display=swap');
+@import './base.css';
+
+* {
+  box-sizing: border-box;
+}
+
+.app-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-image: radial-gradient(var(--app-primary, #3b82f6) 1px, transparent 1px);
+  background-size: 40px 40px;
+  overflow: hidden;
+}
+
+.card {
+  background: var(--app-card-bg, white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-cute);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  border: 4px solid var(--app-border);
+  color: var(--app-text, var(--color-text));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.card-dashed {
+  border: 3px dashed var(--app-primary);
+  background: var(--app-bg-soft);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.heart-particle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.font-sephora { font-family: 'Great Vibes', cursive; }
+.font-matcha { font-family: 'Quicksand', sans-serif; }
+.font-starborn { font-family: 'Fredoka', sans-serif; }
+.font-candy { font-family: 'Bubblegum Sans', cursive; }
+
+.title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.5rem;
+  color: var(--app-primary);
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.subtitle {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.5rem;
+  color: var(--app-secondary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button-primary {
+  background: var(--app-primary);
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+}
+
+.button-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #5a94e0;
+}
+
+.floating-icon {
+  position: absolute;
+  color: var(--color-pink);
+  pointer-events: none;
+}
+
+/* Dashboard Enhancements */
+.dashboard-banner {
+  background: linear-gradient(135deg, var(--app-primary) 0%, var(--app-secondary) 100%);
+  padding: 1.5rem 2rem;
+  border-radius: var(--radius-lg);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-cute);
+  border: 4px solid white;
+}
+
+.dashboard-banner::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.phase-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  box-shadow: var(--shadow-cute);
+  position: relative;
+  overflow: hidden;
+}
+
+.phase-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--card-accent, var(--app-primary));
+}
+
+.phase-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background: #fce7eb;
+  border-radius: var(--radius-full);
+  margin-top: 0.6rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--card-accent, var(--color-blue));
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-text {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--card-accent);
+  margin-top: 0.4rem;
+}
+
+.particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.4;
+  filter: blur(2px);
+}
+
+/* Themes */
+
+.theme-lavender {
+  --app-primary: var(--color-lavender);
+  --app-secondary: var(--color-pink);
+  --app-accent: #d8b4fe;
+  --app-bg: #fbf0ff;
+  --app-bg-soft: #fbf0ff;
+  --app-border: var(--color-lavender);
+  --app-card-bg: white;
+  --app-text: var(--color-text);
+  --app-text-muted: var(--color-text-muted);
+}
+
+.theme-blue {
+  --app-primary: var(--color-blue);
+  --app-secondary: var(--color-teal);
+  --app-accent: #b0d0ff;
+  --app-bg: #f0f7ff;
+  --app-bg-soft: #f0f7ff;
+  --app-border: var(--color-blue);
+  --app-card-bg: white;
+  --app-text: var(--color-text);
+  --app-text-muted: var(--color-text-muted);
+}
+
+.theme-mint {
+  --app-primary: var(--color-green);
+  --app-secondary: var(--color-amber);
+  --app-accent: #99f6e4;
+  --app-bg: #f0fff4;
+  --app-bg-soft: #f0fff4;
+  --app-border: var(--color-green);
+  --app-card-bg: white;
+  --app-text: var(--color-text);
+  --app-text-muted: var(--color-text-muted);
+}
+
+.theme-dark {
+  --app-primary: #b0d0ff;
+  --app-secondary: #ff85a1;
+  --app-accent: #d0e8ff;
+  --app-bg: #0f172a;
+  --app-bg-soft: #1e293b;
+  --app-border: #3b82f6;
+  --app-card-bg: #1e293b;
+  --app-text: #f8fafc;
+  --app-text-muted: #cbd5e1;
+}
+
+/* Base styles using theme variables */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--app-text);
+}
+
+h1, h2 {
+  font-family: 'Great Vibes', cursive;
+}
+
+h3 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+}
+
+button, .sidebar-item {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+}
+
+.stats-text, .badge {
+  font-family: 'Bubblegum Sans', cursive;
+}
+
+body {
+  background-color: var(--app-bg, #fff5f7);
+  color: var(--app-text, var(--color-text));
+  transition: all 0.5s ease;
+  font-family: 'Outfit', sans-serif;
+}

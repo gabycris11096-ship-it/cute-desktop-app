@@ -1,0 +1,65 @@
+:root {
+  /* Cute Palette - High Contrast Edition */
+  --color-pink: #ff8fa3;
+  --color-blue: #7fb3ff;
+  --color-green: #4ade80;
+  --color-lavender: #c084fc;
+  --color-yellow: #fde047;
+  --color-orange: #f97316;
+  --color-teal: #2dd4bf;
+  --color-indigo: #6366f1;
+  --color-amber: #f59e0b;
+  --color-fuchsia: #d946ef;
+  
+  --color-bg: #fff5f8;
+  --color-text: #2d3142;
+  --color-text-muted: #6b7280;
+  
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+  
+  --shadow-cute: 0 6px 15px rgba(255, 143, 163, 0.4);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+  font-family: 'Outfit', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+ul {
+  list-style: none;
+}
