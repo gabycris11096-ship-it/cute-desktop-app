@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Heart, Star, Sparkles, Rocket, Sun, Trophy, Medal, Gift, Briefcase, Moon, Lightbulb } from 'lucide-react'
+import logo from '../assets/logo.png'
 
 interface DashboardProps {
   userName?: string
@@ -67,7 +68,7 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
               <img 
-                src={new URL('../../../resources/icon.png', import.meta.url).href} 
+                src={logo} 
                 alt="App Logo" 
                 style={{ width: '100px', height: '100px', borderRadius: 'var(--radius-lg)', border: '4px solid white', boxShadow: '0 8px 16px rgba(0,0,0,0.2)' }} 
               />

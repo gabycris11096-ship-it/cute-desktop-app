@@ -36,7 +36,7 @@ const POSITIVE_MESSAGES = [
 ]
 
 function App(): React.JSX.Element {
-  const [isInside, setIsInside] = useState(localStorage.getItem('app-inside') === 'true')
+  const [isInside, setIsInside] = useState(false)
   const [activeView, setActiveView] = useState(localStorage.getItem('app-view') || 'dashboard')
   const [motivationMessage, setMotivationMessage] = useState('')
   const [theme, setTheme] = useState(localStorage.getItem('app-theme') || 'theme-lavender')
@@ -46,9 +46,6 @@ function App(): React.JSX.Element {
     localStorage.setItem('app-theme', theme)
   }, [theme])
 
-  useEffect(() => {
-    localStorage.setItem('app-inside', isInside.toString())
-  }, [isInside])
 
   useEffect(() => {
     localStorage.setItem('app-view', activeView)

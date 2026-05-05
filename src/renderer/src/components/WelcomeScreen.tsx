@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Heart, Star } from 'lucide-react'
 import FloatingElement from './FloatingElement'
+import logo from '../assets/logo.png'
 
 interface WelcomeScreenProps {
   onEnter: () => void
@@ -48,7 +49,7 @@ const WelcomeScreen = ({ onEnter }: WelcomeScreenProps): React.JSX.Element => (
         style={{ marginBottom: '1.5rem', display: 'inline-block' }}
       >
         <img 
-          src={new URL('../../../resources/icon.png', import.meta.url).href} 
+          src={logo} 
           alt="Cute QA Logo" 
           style={{ width: '120px', height: '120px', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-cute)', border: '4px solid var(--app-primary)' }} 
         />
