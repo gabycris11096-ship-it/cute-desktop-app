@@ -43,11 +43,15 @@ const WelcomeScreen = ({ onEnter }: WelcomeScreenProps): React.JSX.Element => (
       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
     >
       <motion.div
-        animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        style={{ marginBottom: '1rem', display: 'inline-block' }}
+        animate={{ rotate: [0, 5, -5, 0], y: [0, -10, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        style={{ marginBottom: '1.5rem', display: 'inline-block' }}
       >
-        <Sparkles size={64} color="var(--app-primary)" />
+        <img 
+          src={new URL('../../../resources/icon.png', import.meta.url).href} 
+          alt="Cute QA Logo" 
+          style={{ width: '120px', height: '120px', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-cute)', border: '4px solid var(--app-primary)' }} 
+        />
       </motion.div>
 
       <h1 className="title">Hello, beautiful!</h1>

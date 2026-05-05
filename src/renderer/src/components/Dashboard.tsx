@@ -37,15 +37,27 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
     >
       {/* Welcome Banner */}
       <div className="dashboard-banner">
-        <div style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-            {isDark ? <Moon size={40} color="var(--app-accent)" /> : <Sun size={40} color="var(--color-yellow)" />}
-            <h2 style={{ fontSize: '2rem', fontWeight: 900, margin: 0 }}>{isDark ? '¡Buenas noches,' : '¡Buen día,'} {userName.split(' ')[0]}!</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
+            <div style={{ position: 'relative', zIndex: 2 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                {isDark ? <Moon size={40} color="var(--app-accent)" /> : <Sun size={40} color="var(--color-yellow)" />}
+                <h2 style={{ fontSize: '2rem', fontWeight: 900, margin: 0 }}>{isDark ? '¡Buenas noches,' : '¡Buen día,'} {userName.split(' ')[0]}!</h2>
+              </div>
+              <p style={{ fontSize: '1rem', opacity: 0.95, fontWeight: 600 }}>
+                Hoy es un día perfecto para aprender algo nuevo. ¿Qué aventura elegimos hoy?
+              </p>
+            </div>
+            <motion.div
+              animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <img 
+                src={new URL('../../../resources/icon.png', import.meta.url).href} 
+                alt="App Logo" 
+                style={{ width: '100px', height: '100px', borderRadius: 'var(--radius-lg)', border: '4px solid white', boxShadow: '0 8px 16px rgba(0,0,0,0.2)' }} 
+              />
+            </motion.div>
           </div>
-          <p style={{ fontSize: '1rem', opacity: 0.95, fontWeight: 600 }}>
-            Hoy es un día perfecto para aprender algo nuevo. ¿Qué aventura elegimos hoy?
-          </p>
-        </div>
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
@@ -71,7 +83,7 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Heart size={40} color="var(--color-pink)" fill="var(--color-pink)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text, white)' }}>Fase 1</h3>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 1</h3>
             <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
               Introducción al QA
             </p>
@@ -91,7 +103,7 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Rocket size={40} color="var(--color-orange)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text, white)' }}>Fase 2</h3>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 2</h3>
             <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
               Jira y Scrum
             </p>
@@ -111,7 +123,7 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Star size={40} color="var(--color-teal)" fill="var(--color-teal)" fillOpacity={0.2} />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text, white)' }}>Fase 3</h3>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 3</h3>
             <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
               Automatización
             </p>
@@ -131,7 +143,7 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Trophy size={40} color="var(--color-indigo)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text, white)' }}>Fase 4</h3>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 4</h3>
             <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
               Experiencia Real
             </p>
@@ -151,7 +163,7 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Medal size={40} color="var(--color-amber)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text, white)' }}>Fase 5</h3>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 5</h3>
             <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
               Certificación
             </p>
@@ -171,7 +183,7 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Gift size={40} color="var(--color-fuchsia)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text, white)' }}>Extra</h3>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Extra</h3>
             <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
               Más Sugerencias
             </p>
@@ -191,7 +203,7 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Briefcase size={40} color="var(--app-primary)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text, white)' }}>Portafolio</h3>
+            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Portafolio</h3>
             <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
               Mis Proyectos QA
             </p>
