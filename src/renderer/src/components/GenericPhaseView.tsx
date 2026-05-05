@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 import confetti from 'canvas-confetti'
 import { ArrowLeft, Edit2, Save, Sparkles, Bell, Rocket, Layers, Star, Zap, Trophy, Target, Medal, Lightbulb, Gift, Compass, LucideIcon } from 'lucide-react'
 import CronogramaCard from './CronogramaCard'

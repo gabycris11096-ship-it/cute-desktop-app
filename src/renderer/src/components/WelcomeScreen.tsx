@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Heart, Star, Sparkles } from 'lucide-react'
+import { Heart, Star } from 'lucide-react'
 import FloatingElement from './FloatingElement'
 
 interface WelcomeScreenProps {
