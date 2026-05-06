@@ -3,9 +3,7 @@ import { motion } from 'framer-motion'
 import { Heart, Star, Rocket, Trophy, Medal, Gift, Briefcase } from 'lucide-react'
 
 interface DashboardProps {
-  userName?: string
   progress: Record<string, number>
-  currentTheme: string
   onSelectFase: (fase: string) => void
 }
 

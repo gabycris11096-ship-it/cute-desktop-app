@@ -635,7 +635,7 @@ function App(): React.JSX.Element {
             <div style={{ flex: 1, marginLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', height: 'calc(100vh - 3rem)', overflow: 'hidden' }}>
               <AnimatePresence mode="wait">
                 {activeView === 'dashboard' ? (
-                  <Dashboard key="dashboard" userName={profileData.nombre} progress={progress} currentTheme={theme} onSelectFase={setActiveView} />
+                  <Dashboard key="dashboard" progress={progress} onSelectFase={setActiveView} />
                 ) : activeView === 'fase1' ? (
                   <GenericPhaseView
                     phaseNumber={1}
