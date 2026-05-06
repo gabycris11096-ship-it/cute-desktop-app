@@ -114,7 +114,19 @@ const ProfileView = ({
       </div>
 
       {/* Content */}
-      <div style={{ background: 'var(--app-card-bg, white)', padding: '1rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-cute)', border: '3px solid var(--app-primary)', display: 'flex', flexDirection: 'column', gap: '0.8rem', flex: 1, overflowY: 'hidden' }}>
+      <div style={{ 
+        background: 'var(--app-card-bg, white)', 
+        padding: '1rem', 
+        borderRadius: 'var(--radius-lg)', 
+        boxShadow: 'var(--shadow-cute)', 
+        border: '4px solid var(--app-primary)', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '0.8rem', 
+        flex: 1, 
+        overflow: 'hidden',
+        position: 'relative'
+      }}>
         
         {/* Avatar & Name Section */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', borderBottom: '2px dashed var(--color-lavender)', paddingBottom: '1rem' }}>
@@ -133,7 +145,7 @@ const ProfileView = ({
             style={{ 
               width: '90px', 
               height: '90px', 
-              background: 'var(--color-bg)', 
+              background: 'var(--app-bg-soft)', 
               borderRadius: '50%', 
               border: '3px solid var(--color-lavender)', 
               display: 'flex', 
@@ -176,7 +188,15 @@ const ProfileView = ({
                 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--color-text)', textAlign: 'center', width: '100%', border: '2px solid var(--color-lavender)', borderRadius: 'var(--radius-sm)', padding: '0.5rem', marginBottom: '0.5rem' }}
               />
             ) : (
-              <h1 style={{ fontSize: '2.5rem', color: 'var(--color-text)', margin: 0 }}>{profile.nombre || 'Tu Nombre'}</h1>
+              <h1 style={{ 
+                fontSize: '2.8rem', 
+                color: 'var(--app-primary)', 
+                margin: 0, 
+                textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+                fontWeight: 900
+              }}>
+                {profile.nombre || 'Tu Nombre'}
+              </h1>
             )}
             
             {isEditing ? (
@@ -194,10 +214,10 @@ const ProfileView = ({
 
         {/* Bio Section */}
         <div>
-          <h3 style={{ fontSize: '1.1rem', color: 'var(--color-text)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Briefcase size={18} color="var(--color-lavender)" /> Sobre mí
+          <h3 style={{ fontSize: '1.2rem', color: 'var(--app-text)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800 }}>
+            <Briefcase size={18} color="var(--app-primary)" /> Sobre mí
           </h3>
-          <div style={{ background: 'var(--color-bg)', padding: '1rem', borderRadius: 'var(--radius-md)' }}>
+          <div style={{ background: 'var(--app-bg-soft)', padding: '1rem', borderRadius: 'var(--radius-md)' }}>
             {isEditing ? (
               <textarea 
                 value={profile.bio} 
@@ -206,7 +226,7 @@ const ProfileView = ({
                 style={{ width: '100%', minHeight: '60px', padding: '0.5rem', border: '2px solid var(--color-lavender)', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem', lineHeight: 1.4, resize: 'vertical' }}
               />
             ) : (
-              <p style={{ color: 'var(--color-text)', lineHeight: 1.4, fontSize: '0.9rem', margin: 0 }}>
+              <p style={{ color: 'var(--app-text)', lineHeight: 1.5, fontSize: '0.95rem', margin: 0, opacity: 0.9 }}>
                 {profile.bio || '¡Hola! Escribe una pequeña biografía para tu perfil.'}
               </p>
             )}
@@ -215,12 +235,12 @@ const ProfileView = ({
 
         {/* Social Links Section */}
         <div>
-          <h3 style={{ fontSize: '1.1rem', color: 'var(--color-text)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Mail size={18} color="var(--color-lavender)" /> Enlaces
+          <h3 style={{ fontSize: '1.2rem', color: 'var(--app-text)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800 }}>
+            <Mail size={18} color="var(--app-primary)" /> Enlaces
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem' }}>
             {/* LinkedIn */}
-            <div style={{ background: 'var(--color-bg)', padding: '0.8rem', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+            <div style={{ background: 'var(--app-bg-soft)', padding: '0.8rem', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
               <Briefcase size={20} color="#0A66C2" />
               {isEditing ? (
                 <input 
@@ -230,14 +250,14 @@ const ProfileView = ({
                   style={{ width: '100%', padding: '0.3rem', border: '2px solid var(--color-lavender)', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
                 />
               ) : (
-                <span style={{ color: 'var(--color-text)', fontWeight: 600, wordBreak: 'break-all', fontSize: '0.9rem' }}>
+                <span style={{ color: 'var(--app-text)', fontWeight: 700, wordBreak: 'break-all', fontSize: '0.85rem' }}>
                   {profile.linkedin || 'Agregar LinkedIn'}
                 </span>
               )}
             </div>
             
             {/* GitHub */}
-            <div style={{ background: 'var(--color-bg)', padding: '0.8rem', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+            <div style={{ background: 'var(--app-bg-soft)', padding: '0.8rem', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
               <Code size={20} color="#333" />
               {isEditing ? (
                 <input 
@@ -247,7 +267,7 @@ const ProfileView = ({
                   style={{ width: '100%', padding: '0.3rem', border: '2px solid var(--color-lavender)', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
                 />
               ) : (
-                <span style={{ color: 'var(--color-text)', fontWeight: 600, wordBreak: 'break-all', fontSize: '0.9rem' }}>
+                <span style={{ color: 'var(--app-text)', fontWeight: 700, wordBreak: 'break-all', fontSize: '0.85rem' }}>
                   {profile.github || 'Agregar GitHub'}
                 </span>
               )}
@@ -265,7 +285,7 @@ const ProfileView = ({
                   style={{ width: '100%', padding: '0.3rem', border: '2px solid var(--color-lavender)', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
                 />
               ) : (
-                <span style={{ color: 'var(--color-text)', fontWeight: 600, wordBreak: 'break-all', fontSize: '0.9rem' }}>
+                <span style={{ color: 'var(--app-text)', fontWeight: 700, wordBreak: 'break-all', fontSize: '0.85rem' }}>
                   {profile.email || 'Agregar Email'}
                 </span>
               )}
@@ -283,7 +303,7 @@ const ProfileView = ({
                   style={{ width: '100%', padding: '0.3rem', border: '2px solid var(--color-lavender)', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}
                 />
               ) : (
-                <span style={{ color: 'var(--color-text)', fontWeight: 600, wordBreak: 'break-all', fontSize: '0.9rem' }}>
+                <span style={{ color: 'var(--app-text)', fontWeight: 700, wordBreak: 'break-all', fontSize: '0.85rem' }}>
                   {profile.whatsapp || 'Agregar WhatsApp'}
                 </span>
               )}

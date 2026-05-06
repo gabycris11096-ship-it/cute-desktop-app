@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Heart, Star, Sparkles, Rocket, Sun, Trophy, Medal, Gift, Briefcase, Moon, Lightbulb } from 'lucide-react'
 import logo from '../assets/logo.png'
@@ -26,6 +26,13 @@ const tips = [
 const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase }: DashboardProps): React.JSX.Element => {
   const [randomTip] = useState(() => tips[Math.floor(Math.random() * tips.length)])
   const isDark = currentTheme === 'theme-dark'
+
+  const globalProgress = useMemo(() => {
+    const values = Object.values(progress)
+    if (values.length === 0) return 0
+    return Math.round(values.reduce((a, b) => a + b, 0) / values.length)
+  }, [progress])
+
   const renderProgress = (fase: string, color: string): React.JSX.Element => {
     const val = progress[fase] || 0
     return (
@@ -49,80 +56,24 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+      style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '1.5rem',
+        height: '100%',
+        overflowY: 'auto',
+        paddingRight: '0.5rem',
+        justifyContent: 'center',
+        padding: '1rem' 
+      }}
     >
-      {/* Welcome Banner */}
-      <div className="dashboard-banner">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
-            <div style={{ position: 'relative', zIndex: 2 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                {isDark ? <Moon size={40} color="var(--app-accent)" /> : <Sun size={40} color="var(--color-yellow)" />}
-                <h2 style={{ fontSize: '2rem', fontWeight: 900, margin: 0 }}>{isDark ? '¡Buenas noches,' : '¡Buen día,'} {userName.split(' ')[0]}!</h2>
-              </div>
-              <p style={{ fontSize: '1rem', opacity: 0.95, fontWeight: 600 }}>
-                Hoy es un día perfecto para aprender algo nuevo. ¿Qué aventura elegimos hoy?
-              </p>
-            </div>
-            <motion.div
-              animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <img 
-                src={logo} 
-                alt="App Logo" 
-                style={{ width: '100px', height: '100px', borderRadius: 'var(--radius-lg)', border: '4px solid white', boxShadow: '0 8px 16px rgba(0,0,0,0.2)' }} 
-              />
-            </motion.div>
-          </div>
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          style={{ position: 'absolute', right: '-30px', bottom: '-30px', opacity: 0.2 }}
-        >
-          <Sparkles size={180} color="white" />
-        </motion.div>
-      </div>
-
-        {/* Magic Tip Bubble */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.5, type: "spring" }}
-          style={{ 
-            marginTop: '-1rem', 
-            marginBottom: '1rem',
-            background: 'var(--app-card-bg)', 
-            padding: '0.8rem 1.2rem', 
-            borderRadius: '20px 20px 20px 5px', 
-            boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-            border: '2px solid var(--app-primary)',
-            color: 'var(--app-text)',
-            fontSize: '0.95rem',
-            fontWeight: 600,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            width: 'fit-content',
-            maxWidth: '90%',
-            position: 'relative'
-          }}
-        >
-          <Lightbulb size={20} color="var(--app-primary)" />
-          <span>{randomTip}</span>
-          {/* Pequeño triángulo del globo */}
-          <div style={{ 
-            position: 'absolute', 
-            bottom: '-10px', 
-            left: '10px', 
-            width: 0, 
-            height: 0, 
-            borderLeft: '10px solid transparent',
-            borderRight: '10px solid transparent',
-            borderTop: '10px solid var(--app-primary)'
-          }} />
-        </motion.div>
       <div
-        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1.2rem' }}
+        style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', 
+          gap: '1.5rem',
+          width: '100%'
+        }}
       >
         <motion.div
           className="phase-card"
@@ -136,9 +87,9 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Heart size={40} color="var(--color-pink)" fill="var(--color-pink)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 1</h3>
-            <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
-              Introducción al QA
+            <h3 className="phase-title">Fase 1 – Fundamentos</h3>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem' }}>
+              Fundamentos y QA Efectivo
             </p>
             {renderProgress('fase1', 'var(--color-pink)')}
           </div>
@@ -156,9 +107,9 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Rocket size={40} color="var(--color-orange)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 2</h3>
-            <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
-              Jira y Scrum
+            <h3 className="phase-title">Fase 2 – Bases sólidas</h3>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem' }}>
+              De Cero a QA Engineer
             </p>
             {renderProgress('fase2', 'var(--color-orange)')}
           </div>
@@ -176,9 +127,9 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Star size={40} color="var(--color-teal)" fill="var(--color-teal)" fillOpacity={0.2} />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 3</h3>
-            <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
-              Automatización
+            <h3 className="phase-title">Fase 3 – Automatización inicial</h3>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem' }}>
+              Selenium / Cypress
             </p>
             {renderProgress('fase3', 'var(--color-teal)')}
           </div>
@@ -196,9 +147,9 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Trophy size={40} color="var(--color-indigo)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 4</h3>
-            <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
-              Experiencia Real
+            <h3 className="phase-title">Fase 4 – APIs y certificación</h3>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem' }}>
+              Postman & ISTQB
             </p>
             {renderProgress('fase4', 'var(--color-indigo)')}
           </div>
@@ -216,9 +167,9 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Medal size={40} color="var(--color-amber)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Fase 5</h3>
-            <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
-              Certificación
+            <h3 className="phase-title">Fase 5 – Inmersión Total</h3>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem' }}>
+              Bootcamp Yuri Kanu
             </p>
             {renderProgress('fase5', 'var(--color-amber)')}
           </div>
@@ -236,8 +187,8 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Gift size={40} color="var(--color-fuchsia)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Extra</h3>
-            <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
+            <h3 className="phase-title">Fase 6 – Carrera y CV</h3>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem' }}>
               Más Sugerencias
             </p>
             {renderProgress('fase6', 'var(--color-fuchsia)')}
@@ -256,8 +207,8 @@ const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase 
             <Briefcase size={40} color="var(--app-primary)" />
           </motion.div>
           <div style={{ textAlign: 'center', width: '100%' }}>
-            <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--app-text)' }}>Portafolio</h3>
-            <p style={{ margin: '0.5rem 0 0', color: 'var(--app-text-muted)', fontSize: '0.9rem' }}>
+            <h3 className="phase-title">Portafolio</h3>
+            <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem' }}>
               Mis Proyectos QA
             </p>
           </div>

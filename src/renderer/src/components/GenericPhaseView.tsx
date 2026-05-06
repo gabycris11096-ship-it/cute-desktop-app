@@ -39,17 +39,27 @@ const GenericPhaseView = ({
 }: GenericPhaseViewProps): React.JSX.Element => {
   
   // Icon and Color configuration per phase
-  const config: Record<number, { primary: string, icon: LucideIcon, subIcon: LucideIcon, suffix: string, courseTitle: string, link: string }> = {
-    1: { primary: 'var(--color-blue)', icon: Sparkles, subIcon: Bell, suffix: '✨', courseTitle: 'Cursa – Cómo ser Tester de Software', link: 'https://cursa.app/curso-testes-de-software-es-online-gratis' },
-    2: { primary: 'var(--color-orange)', icon: Rocket, subIcon: Layers, suffix: '🚀', courseTitle: 'Jira y Scrum para QA', link: 'https://www.youtube.com/results?search_query=jira+y+scrum+para+qa' },
-    3: { primary: 'var(--color-teal)', icon: Star, subIcon: Zap, suffix: '🌟', courseTitle: 'Automatización con Selenium', link: 'https://www.selenium.dev/documentation/' },
-    4: { primary: 'var(--color-indigo)', icon: Trophy, subIcon: Target, suffix: '🏆', courseTitle: 'Experiencia en Proyectos Reales', link: 'https://github.com/' },
-    5: { primary: 'var(--color-amber)', icon: Medal, subIcon: Lightbulb, suffix: '🏅', courseTitle: 'ISTQB Foundation Level', link: 'https://www.istqb.org/' },
+  const config: Record<number, { primary: string, icon: LucideIcon, subIcon: LucideIcon, suffix: string, courseTitle: string, link?: string, links?: { title: string, url: string }[] }> = {
+    1: { primary: 'var(--color-pink)', icon: Sparkles, subIcon: Bell, suffix: '✨', courseTitle: 'QA Testing Efectivo – Testing IT University', link: 'https://university.testingit.com.mx/course/curso-qa-testing-efectivo' },
+    2: { primary: 'var(--color-orange)', icon: Rocket, subIcon: Layers, suffix: '🚀', courseTitle: 'Academia de Testing – Curso de Testing Gratis', link: 'https://academiadetesting.com/cursos/curso-de-testing-gratis/' },
+    3: { 
+      primary: 'var(--color-teal)', 
+      icon: Star, 
+      subIcon: Zap, 
+      suffix: '🌟', 
+      courseTitle: 'Automatización con Selenium & Cypress', 
+      links: [
+        { title: 'Curso Selenium (Cursa)', url: 'https://cursa.app/pt/curso-gratuito/automacao-de-testes-com-selenium-dgji' },
+        { title: 'Curso Cypress (Cursa)', url: 'https://cursa.app/pt/curso-gratuito/cypress-na-automacao-de-testes-de-software-dhga' }
+      ]
+    },
+    4: { primary: 'var(--color-indigo)', icon: Trophy, subIcon: Target, suffix: '🏆', courseTitle: 'Testando APIs utilizando Postman + Preparatório para Certificação CTFL (Galiclerc)', link: 'https://galiclerc.com/' },
+    5: { primary: 'var(--color-amber)', icon: Medal, subIcon: Lightbulb, suffix: '🏅', courseTitle: 'Yuri Kanu - Formação Completa em QA', link: 'https://yrkan.com/es/course/' },
     6: { primary: 'var(--color-fuchsia)', icon: Gift, subIcon: Compass, suffix: '🎁', courseTitle: 'Tips de Entrevista y CV', link: 'https://www.linkedin.com/' }
   }
 
   const { primary, icon: MainIcon, subIcon: SubIcon, suffix, courseTitle } = config[phaseNumber] || config[1]
-  const isCrono = phaseNumber <= 4
+  const isCrono = phaseNumber <= 5
   const completed = items.filter(i => i.completado).length
   const total = items.length
   const progress = total > 0 ? Math.round((completed / total) * 100) : 0
@@ -134,26 +144,54 @@ const GenericPhaseView = ({
           )}
         </div>
 
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.open(config[phaseNumber]?.link, '_blank')}
-            style={{
-              background: 'white',
-              color: primary,
-              padding: '0.6rem 1.2rem',
-              borderRadius: 'var(--radius-full)',
-              border: `2px solid ${primary}`,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              fontWeight: 800,
-              fontSize: '0.9rem'
-            }}
-          >
-            Abrir Curso <Compass size={18} />
-          </motion.button>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          {/* Multi-link support */}
+          {config[phaseNumber]?.links ? (
+            config[phaseNumber].links?.map((l, i) => (
+              <motion.button
+                key={i}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => window.open(l.url, '_blank')}
+                style={{
+                  background: 'white',
+                  color: primary,
+                  padding: '0.6rem 1.2rem',
+                  borderRadius: 'var(--radius-full)',
+                  border: `2px solid ${primary}`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+                }}
+              >
+                {l.title} <Compass size={16} />
+              </motion.button>
+            ))
+          ) : config[phaseNumber]?.link ? (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.open(config[phaseNumber]?.link, '_blank')}
+              style={{
+                background: 'white',
+                color: primary,
+                padding: '0.6rem 1.2rem',
+                borderRadius: 'var(--radius-full)',
+                border: `2px solid ${primary}`,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                fontWeight: 800,
+                fontSize: '0.85rem',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+              }}
+            >
+              Abrir Curso <Compass size={18} />
+            </motion.button>
+          ) : null}
 
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -178,7 +216,7 @@ const GenericPhaseView = ({
       </div>
 
       {/* Content Area */}
-      <div style={{ background: 'var(--app-card-bg, white)', padding: '0.8rem 1rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-cute)', border: '3px solid var(--app-primary)', display: 'flex', flexDirection: 'column', gap: '0.5rem', overflowY: 'auto', flex: 1, paddingRight: '0.8rem' }}>
+      <div style={{ background: 'var(--app-card-bg, white)', padding: '0.5rem 0.8rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-cute)', border: '3px solid var(--app-primary)', display: 'flex', flexDirection: 'column', gap: '0.3rem', flex: 1, overflow: 'hidden' }}>
         
         {/* Objectives Section */}
         <section>
@@ -263,7 +301,7 @@ const GenericPhaseView = ({
             {items.map((item, idx) => (
               isCrono ? (
                 <CronogramaCard
-                  key={item.dia}
+                  key={item.id}
                   item={item}
                   isEditing={isEditing}
                   onToggle={() => onToggleItem(idx)}

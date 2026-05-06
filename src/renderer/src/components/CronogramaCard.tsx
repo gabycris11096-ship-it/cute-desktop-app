@@ -25,7 +25,7 @@ const CronogramaCard = ({
   compact = false
 }: CronogramaCardProps): React.JSX.Element => (
   <motion.div
-    key={item.dia}
+    key={item.id}
     whileHover={{ y: -5, scale: 1.02 }}
     onClick={() => !isEditing && onToggle()}
     style={{
@@ -39,7 +39,7 @@ const CronogramaCard = ({
       display: 'flex',
       flexDirection: 'column',
       gap: '0.4rem',
-      minHeight: compact ? '90px' : '120px',
+      minHeight: compact ? '60px' : '100px',
       cursor: 'pointer',
       position: 'relative',
       transition: 'all 0.3s ease'

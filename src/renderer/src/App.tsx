@@ -52,59 +52,85 @@ function App(): React.JSX.Element {
   }, [activeView])
   const [isEditingQA, setIsEditingQA] = useState(false)
   const [qaContent, setQaContent] = useState<QAContent>({
-    titulo: 'Introducción al QA',
+    titulo: 'Fase 1 – Fundamentos',
     objetivo:
-      'Entender qué es QA, conocer los diferentes tipos de pruebas (funcionales, caja negra, regresión) y aprender la metodología correcta para documentar bugs de manera efectiva.',
+      'Curso: QA Testing Efectivo – Testing IT University\n\nObjetivo: Entender qué es QA, tipos de pruebas, ciclo de vida del software, documentación básica.',
     practica:
-      'Crea casos de prueba simples para las aplicaciones que usas todos los días. Intenta encontrar escenarios curiosos en apps como WhatsApp o Gmail.',
+      'Documenta casos de prueba simples para una app que uses a diario (ej. WhatsApp o Gmail).',
     notas: '',
-    cronograma: []
+    cronograma: [
+      { id: 1, dia: 'Día 1', tarea: 'Leer introducción a QA y ciclo de vida del software.', color: 'var(--color-pink)', completado: false },
+      { id: 2, dia: 'Día 2', tarea: 'Estudiar tipos de pruebas (funcionales y no funcionales).', color: 'var(--color-pink)', completado: false },
+      { id: 3, dia: 'Día 3', tarea: 'Practicar documentación de casos de prueba.', color: 'var(--color-pink)', completado: false },
+      { id: 4, dia: 'Día 4', tarea: 'Diseñar casos de prueba para una app que uses (ej. WhatsApp).', color: 'var(--color-pink)', completado: false }
+    ]
   })
 
   // Fase 2 state
   const [isEditingQA2, setIsEditingQA2] = useState(false)
   const [qaContent2, setQaContent2] = useState<QAContent>({
-    titulo: 'QA y Testing',
-    objetivo: 'Aprender Jira, Scrum/Kanban y la gestión de incidencias para trabajar en equipos de desarrollo de software de manera profesional.',
-    practica: 'Abre una cuenta gratuita en Jira y simula un proyecto con tareas y bugs. Crea al menos 3 historias de usuario y 2 incidencias con distintas prioridades.',
+    titulo: 'Fase 2 – Bases sólidas',
+    objetivo: 'Curso: Curso de Testing de Software – De Cero a QA Engineer (Alejandro Canosa)\n\nObjetivo: Profundizar en pruebas funcionales y no funcionales, herramientas básicas, certificaciones ISTQB.',
+    practica: 'Haz un mini-proyecto de pruebas manuales sobre una web sencilla (ej. una tienda online).',
     notas: '',
-    cronograma: []
+    cronograma: [
+      { id: 11, dia: 'Semana 4', tarea: 'Diferencias QA vs QC + fundamentos de testing.', color: 'var(--color-orange)', completado: false },
+      { id: 12, dia: 'Semana 5', tarea: 'Tipos de pruebas y ciclo completo.', color: 'var(--color-orange)', completado: false },
+      { id: 13, dia: 'Semana 6', tarea: 'Herramientas básicas + mini-proyecto en tienda online demo.', color: 'var(--color-orange)', completado: false }
+    ]
   })
 
   // Fase 3 state
   const [isEditingQA3, setIsEditingQA3] = useState(false)
   const [qaContent3, setQaContent3] = useState<QAContent>({
-    titulo: 'Automatización',
-    objetivo: 'Aprender Selenium, Cypress, Playwright y pruebas de APIs para automatizar el proceso de testing de software.',
-    practica: 'Automatiza pruebas en una página web sencilla, por ejemplo el login en una demo app como The Internet (Heroku).',
+    titulo: 'Fase 3 – Automatización inicial',
+    objetivo: 'Curso: Automação de Testes com Selenium / Cypress (Udemy o Cursa)\n\nObjetivo: Aprender a automatizar pruebas web.',
+    practica: 'Automatiza un flujo simple (ej. login y compra en una web demo).',
     notas: '',
-    cronograma: []
+    cronograma: [
+      { id: 21, dia: 'Semana 7', tarea: 'Introducción a Selenium y Cypress.', color: 'var(--color-teal)', completado: false },
+      { id: 22, dia: 'Semana 8', tarea: 'Automatizar login y flujo de compra en web demo.', color: 'var(--color-teal)', completado: false },
+      { id: 23, dia: 'Semana 9', tarea: 'Proyecto práctico: pruebas end-to-end automatizadas.', color: 'var(--color-teal)', completado: false }
+    ]
   })
 
   // Fase 4 state
   const [isEditingQA4, setIsEditingQA4] = useState(false)
   const [qaContent4, setQaContent4] = useState<QAContent>({
-    titulo: 'Experiencia Real',
-    objetivo: 'Aplicar lo aprendido en proyectos reales y ganar experiencia práctica participando en plataformas freelance de testing como uTest y TestIO.',
-    practica: 'Participa en proyectos de prueba en uTest o TestIO y documenta tus hallazgos con capturas, pasos para reproducir y severidad.',
+    titulo: 'Fase 4 – APIs y certificación',
+    objetivo: 'Curso: Testando APIs utilizando Postman + Preparatório para Certificação CTFL (Galiclerc)\n\nObjetivo: Validar endpoints REST y prepararte para certificación internacional.',
+    practica: 'Testea una API pública (ej. Pokémon API) y documenta resultados.',
     notas: '',
-    cronograma: []
+    cronograma: [
+      { id: 31, dia: 'Semana 10', tarea: 'Fundamentos de APIs y pruebas con Postman.', color: 'var(--color-indigo)', completado: false },
+      { id: 32, dia: 'Semana 11', tarea: 'Proyecto práctico: testear una API pública (ej. Pokémon API).', color: 'var(--color-indigo)', completado: false },
+      { id: 33, dia: 'Semana 12', tarea: 'Repaso ISTQB + simulación de examen CTFL.', color: 'var(--color-indigo)', completado: false }
+    ]
   })
 
   // Fase 5 state
   const [isEditingQA5, setIsEditingQA5] = useState(false)
-  const [qaContent5, setQaContent5] = useState<{ titulo: string; objetivo: string; practica: string; notas?: string }>({
-    titulo: 'Certificación',
-    objetivo: 'Validar tus conocimientos con la certificación ISTQB Foundation Level y aumentar tu empleabilidad en el mercado de QA.',
-    practica: 'Repasa con simuladores de examen y guías gratuitas. El examen tiene 40 preguntas de opción múltiple y necesitás el 65% para aprobarlo.',
-    notas: ''
+  const [qaContent5, setQaContent5] = useState<QAContent>({
+    titulo: 'Fase 5 – Inmersión Total',
+    objetivo: 'Curso: Yuri Kanu - Formação Completa em QA\n\nObjetivo: Dominar el stack completo de QA, desde unitarias hasta CI/CD y Chaos Engineering.',
+    practica: 'Completa el pipeline de pruebas de un proyecto real y simula fallos complejos.',
+    notas: '',
+    cronograma: [
+      { id: 501, dia: 'Lunes', tarea: 'Leer teoría del módulo correspondiente, tomar apuntes y practicar unitarias.', color: 'var(--color-amber)', completado: false },
+      { id: 502, dia: 'Martes', tarea: 'Estudiar tipos de pruebas, documentar ciclo en web demo y repasar ISTQB.', color: 'var(--color-amber)', completado: false },
+      { id: 503, dia: 'Miércoles', tarea: 'Configurar Selenium/Cypress/Playwright, automatizar login y testear APIs.', color: 'var(--color-amber)', completado: false },
+      { id: 504, dia: 'Jueves', tarea: 'Automatizar flujo de compra, probar GraphQL/Docker y crear pipeline CI/CD.', color: 'var(--color-amber)', completado: false },
+      { id: 505, dia: 'Viernes', tarea: 'Ejecutar pruebas en Docker, caos engineering y documentar APIs.', color: 'var(--color-amber)', completado: false },
+      { id: 506, dia: 'Sábado', tarea: 'Configurar emuladores móviles y probar apps en dispositivos reales.', color: 'var(--color-amber)', completado: false },
+      { id: 507, dia: 'Domingo', tarea: 'Plan de pruebas, resolver 20 preguntas de entrevista y simular entrevista técnica.', color: 'var(--color-amber)', completado: false }
+    ]
   })
   const [sugerencias5, setSugerencias5] = useState<Sugerencia[]>([])
 
   // Fase 6 state
   const [isEditingQA6, setIsEditingQA6] = useState(false)
   const [qaContent6, setQaContent6] = useState<{ titulo: string; objetivo: string; practica: string; notas?: string }>({
-    titulo: 'Más Sugerencias',
+    titulo: 'Fase 6 – Carrera y CV',
     objetivo: 'Continuar expandiendo tus habilidades como QA y mantenerte al día con las nuevas tecnologías del mercado.',
     practica: 'Investiga sobre nuevas tendencias y herramientas de testing para sumar a tu toolkit personal.',
     notas: ''
@@ -181,6 +207,7 @@ function App(): React.JSX.Element {
         if (content) {
           setQaContent((prev) => ({ ...prev, titulo: content.titulo, objetivo: content.objetivo, practica: content.practica }))
         }
+        /* 
         const crono = await window.api.getCronograma()
         if (crono && crono.length > 0) {
           setQaContent((prev) => ({
@@ -188,6 +215,7 @@ function App(): React.JSX.Element {
             cronograma: crono.map((item) => ({ ...item, completado: !!item.completado }))
           }))
         }
+        */
       } catch (err) {
         console.error('Error loading DB data:', err)
       }
@@ -199,6 +227,7 @@ function App(): React.JSX.Element {
         if (content2) {
           setQaContent2((prev) => ({ ...prev, titulo: content2.titulo, objetivo: content2.objetivo, practica: content2.practica }))
         }
+        /* 
         const crono2 = await window.api.getCronogramaFase2()
         if (crono2 && crono2.length > 0) {
           setQaContent2((prev) => ({
@@ -206,6 +235,7 @@ function App(): React.JSX.Element {
             cronograma: crono2.map((item) => ({ ...item, completado: !!item.completado }))
           }))
         }
+        */
       } catch (err) {
         console.error('Error loading Fase 2 DB data:', err)
       }
@@ -217,6 +247,7 @@ function App(): React.JSX.Element {
         if (content3) {
           setQaContent3((prev) => ({ ...prev, titulo: content3.titulo, objetivo: content3.objetivo, practica: content3.practica }))
         }
+        /* 
         const crono3 = await window.api.getCronogramaFase3()
         if (crono3 && crono3.length > 0) {
           setQaContent3((prev) => ({
@@ -224,6 +255,7 @@ function App(): React.JSX.Element {
             cronograma: crono3.map((item) => ({ ...item, completado: !!item.completado }))
           }))
         }
+        */
       } catch (err) {
         console.error('Error loading Fase 3 DB data:', err)
       }
@@ -235,6 +267,7 @@ function App(): React.JSX.Element {
         if (content4) {
           setQaContent4((prev) => ({ ...prev, titulo: content4.titulo, objetivo: content4.objetivo, practica: content4.practica }))
         }
+        /* 
         const crono4 = await window.api.getCronogramaFase4()
         if (crono4 && crono4.length > 0) {
           setQaContent4((prev) => ({
@@ -242,6 +275,7 @@ function App(): React.JSX.Element {
             cronograma: crono4.map((item) => ({ ...item, completado: !!item.completado }))
           }))
         }
+        */
       } catch (err) {
         console.error('Error loading Fase 4 DB data:', err)
       }
@@ -251,7 +285,7 @@ function App(): React.JSX.Element {
       try {
         const content5 = await window.api.getQAContentFase5()
         if (content5) {
-          setQaContent5({ titulo: content5.titulo, objetivo: content5.objetivo, practica: content5.practica })
+          setQaContent5((prev) => ({ ...prev, titulo: content5.titulo, objetivo: content5.objetivo, practica: content5.practica }))
         }
         const sug5 = await window.api.getSugerenciasFase5()
         if (sug5 && sug5.length > 0) {
@@ -266,7 +300,7 @@ function App(): React.JSX.Element {
       try {
         const content6 = await window.api.getQAContentFase6()
         if (content6) {
-          setQaContent6({ titulo: content6.titulo, objetivo: content6.objetivo, practica: content6.practica })
+          setQaContent6((prev) => ({ ...prev, titulo: content6.titulo, objetivo: content6.objetivo, practica: content6.practica }))
         }
         const sug6 = await window.api.getSugerenciasFase6()
         if (sug6 && sug6.length > 0) {
@@ -623,10 +657,10 @@ function App(): React.JSX.Element {
       fase2: calc(qaContent2.cronograma),
       fase3: calc(qaContent3.cronograma),
       fase4: calc(qaContent4.cronograma),
-      fase5: calc(sugerencias5),
-      fase6: calc(sugerencias6)
+      fase5: calc(qaContent5.cronograma),
+      fase6: calc(qaContent6.cronograma || sugerencias6)
     }
-  }, [qaContent, qaContent2, qaContent3, qaContent4, sugerencias5, sugerencias6])
+  }, [qaContent, qaContent2, qaContent3, qaContent4, qaContent5, sugerencias5, sugerencias6])
 
   return (
     <div className="app-container">
@@ -734,13 +768,29 @@ function App(): React.JSX.Element {
                   <GenericPhaseView
                     phaseNumber={5}
                     qaContent={qaContent5}
-                    items={sugerencias5}
+                    items={qaContent5.cronograma}
                     isEditing={isEditingQA5}
                     onBack={handleBack}
                     onToggleEdit={() => setIsEditingQA5(true)}
                     onSave={handleSaveQA5}
                     onChangeContent={handleChangeContent5}
-                    onToggleItem={handleToggleSugerencia5}
+                    onToggleItem={async (idx) => {
+                      const newCrono = [...qaContent5.cronograma]
+                      const item = newCrono[idx]
+                      const wasCompleted = item.completado
+                      newCrono[idx] = { ...item, completado: !wasCompleted }
+                      setQaContent5((prev) => ({ ...prev, cronograma: newCrono }))
+                      if (!wasCompleted) {
+                        const randomMsg = POSITIVE_MESSAGES[Math.floor(Math.random() * POSITIVE_MESSAGES.length)]
+                        setMotivationMessage(randomMsg)
+                        setTimeout(() => setMotivationMessage(''), 3000)
+                      }
+                    }}
+                    onEditItemText={(idx, val) => {
+                      const newCrono = [...qaContent5.cronograma]
+                      newCrono[idx] = { ...newCrono[idx], tarea: val }
+                      handleChangeContent5({ cronograma: newCrono })
+                    }}
                   />
                 ) : activeView === 'fase6' ? (
                   <GenericPhaseView
