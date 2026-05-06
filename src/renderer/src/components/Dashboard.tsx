@@ -1,4 +1,3 @@
-import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Heart, Star, Rocket, Trophy, Medal, Gift, Briefcase } from 'lucide-react'
 
@@ -7,20 +6,7 @@ interface DashboardProps {
   onSelectFase: (fase: string) => void
 }
 
-const tips = [
-  "Un buen Bug Report tiene pasos claros, resultados esperados y observados. 🐞",
-  "¡No asumas nada! Si tienes dudas, pregunta al equipo. La comunicación es clave. 💬",
-  "El Testing de Regresión es tu mejor amigo después de cada cambio importante. 🔄",
-  "Calidad no es actuar después del error, es prevenir que ocurra. ✨",
-  "¡Prioriza! No todos los bugs tienen el mismo impacto en el usuario. ⚖️",
-  "Documentar tus pruebas hoy te ahorrará dolores de cabeza mañana. 📝",
-  "¡Recuerda hidratarte! Una mente fresca encuentra mejores bugs. 💧",
-  "Explorar la app como un usuario real ayuda a encontrar errores lógicos. 🕵️‍♀️",
-  "La automatización es poderosa, pero el ojo humano es insustituible. 👀",
-  "¡Felicidades por estudiar hoy! Estás un paso más cerca de tu meta. 🌟"
-]
-
-const Dashboard = ({ progress, currentTheme, onSelectFase }: DashboardProps): React.JSX.Element => {
+const Dashboard = ({ progress, onSelectFase }: DashboardProps): React.JSX.Element => {
 
   const renderProgress = (fase: string, color: string): React.JSX.Element => {
     const val = progress[fase] || 0
