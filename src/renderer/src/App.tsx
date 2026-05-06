@@ -129,11 +129,12 @@ function App(): React.JSX.Element {
 
   // Fase 6 state
   const [isEditingQA6, setIsEditingQA6] = useState(false)
-  const [qaContent6, setQaContent6] = useState<{ titulo: string; objetivo: string; practica: string; notas?: string }>({
+  const [qaContent6, setQaContent6] = useState<QAContent>({
     titulo: 'Fase 6 – Carrera y CV',
     objetivo: 'Continuar expandiendo tus habilidades como QA y mantenerte al día con las nuevas tecnologías del mercado.',
     practica: 'Investiga sobre nuevas tendencias y herramientas de testing para sumar a tu toolkit personal.',
-    notas: ''
+    notas: '',
+    cronograma: []
   })
   const [sugerencias6, setSugerencias6] = useState<Sugerencia[]>([])
 
@@ -207,15 +208,6 @@ function App(): React.JSX.Element {
         if (content) {
           setQaContent((prev) => ({ ...prev, titulo: content.titulo, objetivo: content.objetivo, practica: content.practica }))
         }
-        /* 
-        const crono = await window.api.getCronograma()
-        if (crono && crono.length > 0) {
-          setQaContent((prev) => ({
-            ...prev,
-            cronograma: crono.map((item) => ({ ...item, completado: !!item.completado }))
-          }))
-        }
-        */
       } catch (err) {
         console.error('Error loading DB data:', err)
       }
@@ -227,15 +219,6 @@ function App(): React.JSX.Element {
         if (content2) {
           setQaContent2((prev) => ({ ...prev, titulo: content2.titulo, objetivo: content2.objetivo, practica: content2.practica }))
         }
-        /* 
-        const crono2 = await window.api.getCronogramaFase2()
-        if (crono2 && crono2.length > 0) {
-          setQaContent2((prev) => ({
-            ...prev,
-            cronograma: crono2.map((item) => ({ ...item, completado: !!item.completado }))
-          }))
-        }
-        */
       } catch (err) {
         console.error('Error loading Fase 2 DB data:', err)
       }
@@ -247,15 +230,6 @@ function App(): React.JSX.Element {
         if (content3) {
           setQaContent3((prev) => ({ ...prev, titulo: content3.titulo, objetivo: content3.objetivo, practica: content3.practica }))
         }
-        /* 
-        const crono3 = await window.api.getCronogramaFase3()
-        if (crono3 && crono3.length > 0) {
-          setQaContent3((prev) => ({
-            ...prev,
-            cronograma: crono3.map((item) => ({ ...item, completado: !!item.completado }))
-          }))
-        }
-        */
       } catch (err) {
         console.error('Error loading Fase 3 DB data:', err)
       }
@@ -267,15 +241,6 @@ function App(): React.JSX.Element {
         if (content4) {
           setQaContent4((prev) => ({ ...prev, titulo: content4.titulo, objetivo: content4.objetivo, practica: content4.practica }))
         }
-        /* 
-        const crono4 = await window.api.getCronogramaFase4()
-        if (crono4 && crono4.length > 0) {
-          setQaContent4((prev) => ({
-            ...prev,
-            cronograma: crono4.map((item) => ({ ...item, completado: !!item.completado }))
-          }))
-        }
-        */
       } catch (err) {
         console.error('Error loading Fase 4 DB data:', err)
       }
@@ -391,7 +356,6 @@ function App(): React.JSX.Element {
     setIsEditingProfile(false)
   }
 
-  // Fase 2 handlers
   const handleSaveQA2 = async (): Promise<void> => {
     try {
       await window.api.saveQAContentFase2({ titulo: qaContent2.titulo, objetivo: qaContent2.objetivo, practica: qaContent2.practica })
@@ -428,7 +392,6 @@ function App(): React.JSX.Element {
     setQaContent2((prev) => ({ ...prev, ...updated }))
   }
 
-  // Fase 3 handlers
   const handleSaveQA3 = async (): Promise<void> => {
     try {
       await window.api.saveQAContentFase3({ titulo: qaContent3.titulo, objetivo: qaContent3.objetivo, practica: qaContent3.practica })
@@ -465,7 +428,6 @@ function App(): React.JSX.Element {
     setQaContent3((prev) => ({ ...prev, ...updated }))
   }
 
-  // Fase 4 handlers
   const handleSaveQA4 = async (): Promise<void> => {
     try {
       await window.api.saveQAContentFase4({ titulo: qaContent4.titulo, objetivo: qaContent4.objetivo, practica: qaContent4.practica })
@@ -502,7 +464,6 @@ function App(): React.JSX.Element {
     setQaContent4((prev) => ({ ...prev, ...updated }))
   }
 
-  // Fase 5 handlers
   const handleSaveQA5 = async (): Promise<void> => {
     try {
       await window.api.saveQAContentFase5({ titulo: qaContent5.titulo, objetivo: qaContent5.objetivo, practica: qaContent5.practica })
@@ -512,29 +473,10 @@ function App(): React.JSX.Element {
     }
   }
 
-  const handleToggleSugerencia5 = async (idx: number): Promise<void> => {
-    const newSug = [...sugerencias5]
-    const item = newSug[idx]
-    const wasCompleted = item.completado
-    newSug[idx] = { ...item, completado: !wasCompleted }
-    setSugerencias5(newSug)
-    try {
-      await window.api.toggleSugerenciaFase5(newSug[idx])
-    } catch (err) {
-      console.error('Error updating Fase 5 sugerencia in DB:', err)
-    }
-    if (!wasCompleted) {
-      const randomMsg = POSITIVE_MESSAGES[Math.floor(Math.random() * POSITIVE_MESSAGES.length)]
-      setMotivationMessage(randomMsg)
-      setTimeout(() => setMotivationMessage(''), 3000)
-    }
-  }
-
-  const handleChangeContent5 = (updated: Partial<{ titulo: string; objetivo: string; practica: string }>): void => {
+  const handleChangeContent5 = (updated: Partial<QAContent>): void => {
     setQaContent5((prev) => ({ ...prev, ...updated }))
   }
 
-  // Fase 6 handlers
   const handleSaveQA6 = async (): Promise<void> => {
     try {
       await window.api.saveQAContentFase6({ titulo: qaContent6.titulo, objetivo: qaContent6.objetivo, practica: qaContent6.practica })
@@ -566,7 +508,6 @@ function App(): React.JSX.Element {
     setQaContent6((prev) => ({ ...prev, ...updated }))
   }
 
-  // Portfolio handlers
   const handleSavePortfolio = async (): Promise<void> => {
     try {
       for (const item of portfolioData) {
@@ -586,7 +527,6 @@ function App(): React.JSX.Element {
     setPortfolioData(newData)
   }
 
-  // Profile handlers
   const handleSaveProfile = async (): Promise<void> => {
     try {
       await window.api.saveProfile(profileData)
@@ -658,7 +598,7 @@ function App(): React.JSX.Element {
       fase3: calc(qaContent3.cronograma),
       fase4: calc(qaContent4.cronograma),
       fase5: calc(qaContent5.cronograma),
-      fase6: calc(qaContent6.cronograma || sugerencias6)
+      fase6: calc(qaContent6.cronograma),
     }
   }, [qaContent, qaContent2, qaContent3, qaContent4, qaContent5, sugerencias5, sugerencias6])
 

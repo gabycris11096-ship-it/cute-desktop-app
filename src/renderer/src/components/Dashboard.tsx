@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
-import { Heart, Star, Sparkles, Rocket, Sun, Trophy, Medal, Gift, Briefcase, Moon, Lightbulb } from 'lucide-react'
-import logo from '../assets/logo.png'
+import { Heart, Star, Rocket, Trophy, Medal, Gift, Briefcase } from 'lucide-react'
 
 interface DashboardProps {
   userName?: string
@@ -23,15 +22,7 @@ const tips = [
   "¡Felicidades por estudiar hoy! Estás un paso más cerca de tu meta. 🌟"
 ]
 
-const Dashboard = ({ userName = 'mágica', progress, currentTheme, onSelectFase }: DashboardProps): React.JSX.Element => {
-  const [randomTip] = useState(() => tips[Math.floor(Math.random() * tips.length)])
-  const isDark = currentTheme === 'theme-dark'
-
-  const globalProgress = useMemo(() => {
-    const values = Object.values(progress)
-    if (values.length === 0) return 0
-    return Math.round(values.reduce((a, b) => a + b, 0) / values.length)
-  }, [progress])
+const Dashboard = ({ progress, currentTheme, onSelectFase }: DashboardProps): React.JSX.Element => {
 
   const renderProgress = (fase: string, color: string): React.JSX.Element => {
     const val = progress[fase] || 0
