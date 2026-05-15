@@ -81,6 +81,14 @@ db.exec(`
     completado INTEGER
   );
 
+  CREATE TABLE IF NOT EXISTS cronograma_fase5 (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    dia TEXT,
+    tarea TEXT,
+    color TEXT,
+    completado INTEGER
+  );
+
   CREATE TABLE IF NOT EXISTS qa_content_fase6 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo TEXT,
@@ -284,6 +292,32 @@ if (fase5SugCount.count === 0) {
   for (const s of fase5Sugerencias) {
     insertSug.run(s.emoji, s.texto, 0)
   }
+}
+
+// Fase 5 correct schedule — source of truth applied on every startup
+const fase5Schedule = [
+  { dia: 'Lunes', tarea: 'Leer teoría del módulo correspondiente, tomar apuntes y practicar unitarias.', color: '#f59e0b' },
+  { dia: 'Martes', tarea: 'Estudiar tipos de pruebas, documentar ciclo en web demo y repasar ISTQB.', color: '#f59e0b' },
+  { dia: 'Miércoles', tarea: 'Configurar Selenium/Cypress/Playwright, automatizar login y testear APIs.', color: '#f59e0b' },
+  { dia: 'Jueves', tarea: 'Automatizar flujo de compra, probar GraphQL/Docker y crear pipeline CI/CD.', color: '#f59e0b' },
+  { dia: 'Viernes', tarea: 'Ejecutar pruebas en Docker, caos engineering y documentar APIs.', color: '#f59e0b' },
+  { dia: 'Sábado', tarea: 'Configurar emuladores móviles y probar apps en dispositivos reales.', color: '#f59e0b' },
+  { dia: 'Domingo', tarea: 'Plan de pruebas, resolver 20 preguntas de entrevista y simular entrevista técnica.', color: '#f59e0b' }
+]
+
+// Seed Fase 5 cronograma if empty
+const fase5CronoCount = db.prepare('SELECT COUNT(*) as count FROM cronograma_fase5').get() as { count: number }
+if (fase5CronoCount.count === 0) {
+  const insertCronoFase5 = db.prepare('INSERT INTO cronograma_fase5 (dia, tarea, color, completado) VALUES (?, ?, ?, ?)')
+  for (const item of fase5Schedule) {
+    insertCronoFase5.run(item.dia, item.tarea, item.color, 0)
+  }
+}
+
+// Always sync cronograma_fase5 content (keeps completado untouched)
+const updateCronoFase5 = db.prepare('UPDATE cronograma_fase5 SET tarea = ?, color = ? WHERE dia = ?')
+for (const item of fase5Schedule) {
+  updateCronoFase5.run(item.tarea, item.color, item.dia)
 }
 
 // Fase 6 suggestions — source of truth

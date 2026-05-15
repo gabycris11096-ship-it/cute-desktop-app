@@ -27,6 +27,8 @@ const api = {
   saveQAContentFase5: (content) => ipcRenderer.invoke('db:save-qa-content-fase5', content),
   getSugerenciasFase5: () => ipcRenderer.invoke('db:get-sugerencias-fase5'),
   toggleSugerenciaFase5: (item) => ipcRenderer.invoke('db:toggle-sugerencia-fase5', item),
+  getCronogramaFase5: () => ipcRenderer.invoke('db:get-cronograma-fase5'),
+  updateCronogramaItemFase5: (item) => ipcRenderer.invoke('db:update-cronograma-item-fase5', item),
   // Fase 6
   getQAContentFase6: () => ipcRenderer.invoke('db:get-qa-content-fase6'),
   saveQAContentFase6: (content) => ipcRenderer.invoke('db:save-qa-content-fase6', content),

@@ -28,6 +28,8 @@ declare global {
       saveQAContentFase5: (content: any) => Promise<any>
       getSugerenciasFase5: () => Promise<any[]>
       toggleSugerenciaFase5: (item: any) => Promise<any>
+      getCronogramaFase5: () => Promise<any[]>
+      updateCronogramaItemFase5: (item: any) => Promise<any>
       // Fase 6
       getQAContentFase6: () => Promise<any>
       saveQAContentFase6: (content: any) => Promise<any>

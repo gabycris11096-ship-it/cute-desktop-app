@@ -151,6 +151,15 @@ app.whenReady().then(() => {
       .run(item.completado ? 1 : 0, item.id)
   })
 
+  ipcMain.handle('db:get-cronograma-fase5', () => {
+    return db.prepare('SELECT * FROM cronograma_fase5').all()
+  })
+
+  ipcMain.handle('db:update-cronograma-item-fase5', (_, item) => {
+    return db.prepare('UPDATE cronograma_fase5 SET tarea = ?, completado = ? WHERE id = ?')
+      .run(item.tarea, item.completado ? 1 : 0, item.id)
+  })
+
   // Fase 6 Database Handlers
   ipcMain.handle('db:get-qa-content-fase6', () => {
     return db.prepare('SELECT * FROM qa_content_fase6 LIMIT 1').get()
@@ -212,7 +221,7 @@ app.whenReady().then(() => {
         'qa_content_fase2', 'cronograma_fase2',
         'qa_content_fase3', 'cronograma_fase3',
         'qa_content_fase4', 'cronograma_fase4',
-        'qa_content_fase5', 'sugerencias_fase5',
+        'qa_content_fase5', 'cronograma_fase5', 'sugerencias_fase5',
         'qa_content_fase6', 'sugerencias_fase6'
       ]
       tables.forEach(table => {

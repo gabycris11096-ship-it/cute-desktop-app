@@ -205,8 +205,17 @@ function App(): React.JSX.Element {
     const loadContent = async (): Promise<void> => {
       try {
         const content = await window.api.getQAContent()
+        const crono = await window.api.getCronograma()
         if (content) {
-          setQaContent((prev) => ({ ...prev, titulo: content.titulo, objetivo: content.objetivo, practica: content.practica }))
+          setQaContent((prev) => ({ 
+            ...prev, 
+            titulo: content.titulo, 
+            objetivo: content.objetivo, 
+            practica: content.practica,
+            cronograma: crono && crono.length > 0 
+              ? crono.map((c: any) => ({ ...c, completado: !!c.completado }))
+              : prev.cronograma
+          }))
         }
       } catch (err) {
         console.error('Error loading DB data:', err)
@@ -216,8 +225,17 @@ function App(): React.JSX.Element {
     const loadContent2 = async (): Promise<void> => {
       try {
         const content2 = await window.api.getQAContentFase2()
+        const crono2 = await window.api.getCronogramaFase2()
         if (content2) {
-          setQaContent2((prev) => ({ ...prev, titulo: content2.titulo, objetivo: content2.objetivo, practica: content2.practica }))
+          setQaContent2((prev) => ({ 
+            ...prev, 
+            titulo: content2.titulo, 
+            objetivo: content2.objetivo, 
+            practica: content2.practica,
+            cronograma: crono2 && crono2.length > 0 
+              ? crono2.map((c: any) => ({ ...c, completado: !!c.completado }))
+              : prev.cronograma
+          }))
         }
       } catch (err) {
         console.error('Error loading Fase 2 DB data:', err)
@@ -227,8 +245,17 @@ function App(): React.JSX.Element {
     const loadContent3 = async (): Promise<void> => {
       try {
         const content3 = await window.api.getQAContentFase3()
+        const crono3 = await window.api.getCronogramaFase3()
         if (content3) {
-          setQaContent3((prev) => ({ ...prev, titulo: content3.titulo, objetivo: content3.objetivo, practica: content3.practica }))
+          setQaContent3((prev) => ({ 
+            ...prev, 
+            titulo: content3.titulo, 
+            objetivo: content3.objetivo, 
+            practica: content3.practica,
+            cronograma: crono3 && crono3.length > 0 
+              ? crono3.map((c: any) => ({ ...c, completado: !!c.completado }))
+              : prev.cronograma
+          }))
         }
       } catch (err) {
         console.error('Error loading Fase 3 DB data:', err)
@@ -238,8 +265,17 @@ function App(): React.JSX.Element {
     const loadContent4 = async (): Promise<void> => {
       try {
         const content4 = await window.api.getQAContentFase4()
+        const crono4 = await window.api.getCronogramaFase4()
         if (content4) {
-          setQaContent4((prev) => ({ ...prev, titulo: content4.titulo, objetivo: content4.objetivo, practica: content4.practica }))
+          setQaContent4((prev) => ({ 
+            ...prev, 
+            titulo: content4.titulo, 
+            objetivo: content4.objetivo, 
+            practica: content4.practica,
+            cronograma: crono4 && crono4.length > 0 
+              ? crono4.map((c: any) => ({ ...c, completado: !!c.completado }))
+              : prev.cronograma
+          }))
         }
       } catch (err) {
         console.error('Error loading Fase 4 DB data:', err)
@@ -249,12 +285,21 @@ function App(): React.JSX.Element {
     const loadContent5 = async (): Promise<void> => {
       try {
         const content5 = await window.api.getQAContentFase5()
+        const crono5 = await window.api.getCronogramaFase5()
         if (content5) {
-          setQaContent5((prev) => ({ ...prev, titulo: content5.titulo, objetivo: content5.objetivo, practica: content5.practica }))
+          setQaContent5((prev) => ({ 
+            ...prev, 
+            titulo: content5.titulo, 
+            objetivo: content5.objetivo, 
+            practica: content5.practica,
+            cronograma: crono5 && crono5.length > 0 
+              ? crono5.map((c: any) => ({ ...c, completado: !!c.completado }))
+              : prev.cronograma
+          }))
         }
         const sug5 = await window.api.getSugerenciasFase5()
         if (sug5 && sug5.length > 0) {
-          setSugerencias5(sug5.map((item) => ({ ...item, completado: !!item.completado })))
+          setSugerencias5(sug5.map((item: any) => ({ ...item, completado: !!item.completado })))
         }
       } catch (err) {
         console.error('Error loading Fase 5 DB data:', err)
@@ -269,7 +314,7 @@ function App(): React.JSX.Element {
         }
         const sug6 = await window.api.getSugerenciasFase6()
         if (sug6 && sug6.length > 0) {
-          setSugerencias6(sug6.map((item) => ({ ...item, completado: !!item.completado })))
+          setSugerencias6(sug6.map((item: any) => ({ ...item, completado: !!item.completado })))
         }
       } catch (err) {
         console.error('Error loading Fase 6 DB data:', err)
@@ -467,7 +512,12 @@ function App(): React.JSX.Element {
   const handleSaveQA5 = async (): Promise<void> => {
     try {
       await window.api.saveQAContentFase5({ titulo: qaContent5.titulo, objetivo: qaContent5.objetivo, practica: qaContent5.practica })
+      for (const item of qaContent5.cronograma) {
+        await window.api.updateCronogramaItemFase5(item)
+      }
       setIsEditingQA5(false)
+      setMotivationMessage('¡Inmersión Total guardada! 🏅')
+      setTimeout(() => setMotivationMessage(''), 2000)
     } catch (err) {
       console.error('Error saving Fase 5 QA content:', err)
     }
@@ -720,6 +770,11 @@ function App(): React.JSX.Element {
                       const wasCompleted = item.completado
                       newCrono[idx] = { ...item, completado: !wasCompleted }
                       setQaContent5((prev) => ({ ...prev, cronograma: newCrono }))
+                      try {
+                        await window.api.updateCronogramaItemFase5(newCrono[idx])
+                      } catch (err) {
+                        console.error('Error updating Fase 5 item in DB:', err)
+                      }
                       if (!wasCompleted) {
                         const randomMsg = POSITIVE_MESSAGES[Math.floor(Math.random() * POSITIVE_MESSAGES.length)]
                         setMotivationMessage(randomMsg)
